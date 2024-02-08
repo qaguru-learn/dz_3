@@ -10,26 +10,17 @@
 """
 
 from selene import browser, be, have
-import pytest
-
-@pytest.fixture(scope='session')
-def browser_settings():
-    # настройка размера браузера
-    browser.config.window_height = 600
-    browser.config.window_width = 800
-    yield
-    browser.quit()
 
 
-def test_search_have_result():
+def test_search_have_result(browser_settings):
     browser.open('https://google.com')
     browser.element('[name="q"]').should(be.blank).type('yashaka/selene').press_enter()
     browser.element('[id="search"]').should(have.text('Selene - User-oriented Web UI browser tests in Python'))
 
 
-def test_search_no_result():
+def test_search_no_result(browser_settings):
     browser.open('https://google.com')
-    browser.element('[name="q"]').should(be.blank).type('dakjshdlkjahslkjdhlakjshdlkajhsldkjhaklsjndlkjsndlkcfjasldkjbalksdjvbaksjhv').press_enter()
+    browser.element('[name="q"]').should(be.blank).type('dakjshdasdasdlkjahslkjdhlakjshdlnjanskdjnkajnsdkjanskjdnksdlkb c cv sjhdbvljkhsabdlvjahbsdjhbvaljshbdvajshdv jahsd vjahs dvjha sdvkajhsldkjhaklsjndlkjsndlkcfjasldkjbalksdjvbaksjhv').press_enter()
     browser.element('[id="result-stats"]').should(have.text('Результатов: примерно 0'))
 
 
